@@ -11,7 +11,7 @@ public class playerController : MonoBehaviour
 
     Rigidbody2D rigidBody;
     Animator animator;
-
+    Vector3 startPosition;
 
     const string STATE_ALIVE = "isAlive";
     const string STATE_ON_THE_GROUND = "isOnTheGround";
@@ -28,12 +28,21 @@ public class playerController : MonoBehaviour
     {
         animator.SetBool(STATE_ALIVE, true);
         animator.SetBool(STATE_ON_THE_GROUND, true);
+        
+        startPosition = this.transform.position;
+    }
+
+    public void StartGame()
+    {
+        this.transform.position = startPosition;
+        this.rigidBody.velocity = Vector2.zero;
     }
 
     // Update is called once per frame
     void Update()
     {
-        if(Input.GetKeyDown(KeyCode.Space)|| Input.GetMouseButtonDown(0)){
+        if(Input.GetButtonDown("Jump"))
+        {
             Jump();
         }
 
@@ -44,8 +53,15 @@ public class playerController : MonoBehaviour
     
     void FixedUpdate()
     {
-        if (rigidBody.velocity.x < runningSpeed){
+        if(gameManager.sharedInstance.currentGameState == GameState.inGame)
+        {
+            if (rigidBody.velocity.x < runningSpeed)
+            {
             rigidBody.velocity = new Vector2(runningSpeed, rigidBody.velocity.y);
+
+        } else{
+            rigidBody.velocity = new Vector2(0, rigidBody.velocity.y);
+        }
         }
     }
 
@@ -61,11 +77,14 @@ public class playerController : MonoBehaviour
     bool IsTouchingTheGround()
     {
         if (Physics2D.Raycast(this.transform.position, Vector2.down, 2.0f, groundMask)){
-            //TODO: program logic of contact with the floor
             return true;
         } else {
-            //TODO: program no contact logic
             return false;
         }
+    }
+
+    public void Die(){
+        this.animator.SetBool(STATE_ALIVE, false);
+        gameManager.sharedInstance.gameOver();
     }
 }
