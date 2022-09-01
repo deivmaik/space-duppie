@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 860435244256010577}
   - component: {fileID: 2837371652422701242}
   m_Layer: 8
-  m_Name: surface-3
+  m_Name: surface-small
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
