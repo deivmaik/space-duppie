@@ -1,7 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
+ 
 public enum GameState{
     menu,
     inGame,
@@ -14,6 +14,8 @@ public class GameManager : MonoBehaviour
 
     public static GameManager sharedInstance;
 
+    PlayerController controller;
+
     void Awake()
     {
         if(sharedInstance == null)
@@ -25,13 +27,13 @@ public class GameManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        
+        controller = GameObject.Find("Player").GetComponent<PlayerController>();
     }
 
     // Update is called once per frame
     void Update()
     {
-        if(Input.GetButtonDown("Submit")){
+        if(Input.GetButtonDown("Submit") && currentGameState != GameState.inGame){
             StartGame();
         }
     }
@@ -57,7 +59,7 @@ public class GameManager : MonoBehaviour
         if(newGameState == GameState.menu){
             //todo
         } else if( newGameState == GameState.inGame){
-            //todo
+            controller.StartGame();
         } else if( newGameState == GameState.gameOver){
             //todo
         }
