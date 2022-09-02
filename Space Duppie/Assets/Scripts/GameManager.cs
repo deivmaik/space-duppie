@@ -59,10 +59,14 @@ public class GameManager : MonoBehaviour
         if(newGameState == GameState.menu){
             //todo
         } else if( newGameState == GameState.inGame){
+            LevelManager.sharedInstance.RemoveAllLevelBlocks();
+            LevelManager.sharedInstance.GenerateInitialBlocks();
             controller.StartGame();
+
         } else if( newGameState == GameState.gameOver){
             //todo
         }
         this.currentGameState = newGameState;
     }
+
 }
