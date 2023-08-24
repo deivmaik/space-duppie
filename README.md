@@ -1,6 +1,6 @@
 # space-duppie
 
-During the summer of 2022, I was wanted to learn how to create games using Unity and ultimately ended up developing this small game.
+In the summer of 2022, I aimed to learn game development using Unity and ended up creating a small game.
 
 ----------
 Update 2023:
